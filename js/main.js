@@ -10,11 +10,11 @@ var $entryNotes = $newEntryForm['notes-entry'];
 var $imagePreview = document.querySelector('.entry-thumbnail');
 
 function updatePreviewImage(event) {
-  if ($photoUrl.value === '') {
-    $imagePreview.setAttribute('src', 'images/placeholder-image-square.jpg');
-  } else {
-    $imagePreview.setAttribute('src', $photoUrl.value);
-  }
+  $imagePreview.setAttribute('src', $photoUrl.value);
+}
+
+function resetPreviewImage() {
+  $imagePreview.setAttribute('src', 'images/placeholder-image-square.jpg');
 }
 
 $photoUrl.addEventListener('input', updatePreviewImage);
@@ -31,7 +31,7 @@ function submitHandler(event) {
   $newEntryForm.reset();
 
   updateStoredData();
-  updatePreviewImage();
+  resetPreviewImage();
 }
 
 $newEntryForm.addEventListener('submit', submitHandler);
