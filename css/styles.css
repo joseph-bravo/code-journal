@@ -75,16 +75,16 @@ img.entry-thumbnail {
   height: 250px;
 }
 
-@media screen and (min-width: 768px) {
-  img.entry-thumbnail {
-    height: 100%;
-  }
-}
-
 .remove-top-margin {
   margin-top: 0;
 }
 
 .bottom-margin-1rem {
   margin-bottom: 1rem;
+}
+
+@media screen and (min-width: 768px) {
+  img.entry-thumbnail {
+    height: 100%;
+  }
 }

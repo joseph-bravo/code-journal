@@ -12,8 +12,8 @@ function updateStoredData() {
   localStorage.setItem('data', JSON.stringify(data));
 }
 
-var storedData = localStorage.getItem('data');
 function readStoredData() {
+  var storedData = localStorage.getItem('data');
   if (storedData) {
     data = JSON.parse(storedData);
   }
