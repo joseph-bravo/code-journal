@@ -4,10 +4,6 @@
 
 h1,
 h2,
-h3,
-h4,
-h5,
-h6,
 label {
   font-family: "Proza Libre", sans-serif;
 }
@@ -72,10 +68,6 @@ input:focus,
 textarea:focus {
   outline: 2px solid #562b81;
 }
-
-/* :focus-visible {
-  outline: 0;
-} */
 
 img.entry-thumbnail {
   object-fit: cover;

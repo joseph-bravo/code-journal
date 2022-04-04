@@ -46,11 +46,11 @@
             <div class="row">
               <div class="column-full bottom-margin-1rem">
                 <label class="remove-top-margin" for="title-entry">Title</label>
-                <input type="text" id="title-entry">
+                <input required type="text" id="title-entry">
               </div>
               <div class="column-full bottom-margin-1rem">
                 <label for="photo-url">Photo URL</label>
-                <input type="text" id="photo-url">
+                <input required type="url" id="photo-url">
               </div>
             </div>
           </div>
@@ -58,12 +58,12 @@
         <div class="row">
           <div class="column-full bottom-margin-1rem">
             <label for="notes-entry">Notes</label>
-            <textarea id="notes-entry"></textarea>
+            <textarea required id="notes-entry"></textarea>
           </div>
         </div>
         <div class="row justify-right">
           <div class="column-content">
-            <button form="new-entry" id="save" class="txt-color-white button-save">Save</button>
+            <button form="new-entry" id="submit" class="txt-color-white button-save">Save</button>
           </div>
         </div>
       </form>
