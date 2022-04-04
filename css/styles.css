@@ -1,0 +1,29 @@
+* {
+  font-family: sans-serif;
+  margin: 0;
+}
+
+header {
+  background: purple;
+  padding: 0 1.5rem;
+}
+
+img {
+  width: 100%;
+}
+
+label {
+  display: block;
+}
+
+.txt-color-white {
+  color: white;
+}
+
+.button-save {
+  background-color: #562b81;
+  border-radius: 4px;
+  text-transform: uppercase;
+  height: 2rem;
+  width: 4       rem;
+}
