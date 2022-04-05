@@ -7,7 +7,7 @@ var $entryTitle = $newEntryForm['title-entry'];
 var $photoUrl = $newEntryForm['photo-url'];
 var $entryNotes = $newEntryForm['notes-entry'];
 
-var $imagePreview = document.querySelector('.entry-thumbnail');
+var $imagePreview = document.querySelector('.entry-img-preview');
 
 function updatePreviewImage(event) {
   $imagePreview.setAttribute('src', $photoUrl.value);
