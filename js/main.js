@@ -2,10 +2,10 @@
 /* exported data */
 /* global updateStoredData */
 
-var $newEntryForm = document.forms['new-entry'];
-var $entryTitle = $newEntryForm['title-entry'];
-var $photoUrl = $newEntryForm['photo-url'];
-var $entryNotes = $newEntryForm['notes-entry'];
+var $entryForm = document.forms['entry-form'];
+var $entryTitle = $entryForm['title-entry'];
+var $photoUrl = $entryForm['photo-url'];
+var $entryNotes = $entryForm['notes-entry'];
 
 var $imagePreview = document.querySelector('.entry-img-preview');
 
@@ -34,25 +34,33 @@ function submitHandler(event) {
   // photoUrl: string
   // notes: string
   // entryId: number
+  if (data.editing === null) {
 
-  entryObj.title = $entryTitle.value;
-  entryObj.photoUrl = $photoUrl.value;
-  entryObj.notes = $entryNotes.value;
-  entryObj.entryId = data.nextEntryId;
-  data.nextEntryId++;
-  data.entries.unshift(entryObj);
-  $newEntryForm.reset();
+    entryObj.title = $entryTitle.value;
+    entryObj.photoUrl = $photoUrl.value;
+    entryObj.notes = $entryNotes.value;
+    entryObj.entryId = data.nextEntryId;
+    data.nextEntryId++;
+    data.entries.unshift(entryObj);
+    $entryForm.reset();
+    $entryDisplay.prepend(createJournalEntryDOM(entryObj));
+  } else {
 
-  $entryDisplay.prepend(createJournalEntryDOM(entryObj));
-
+    data.editing.title = $entryTitle.value;
+    data.editing.photoUrl = $photoUrl.value;
+    data.editing.notes = $entryNotes.value;
+    var $oldDiv = getEntryDivFromId(data.editing.entryId);
+    var $newDiv = createJournalEntryDOM(data.editing);
+    $entryDisplay.replaceChild($newDiv, $oldDiv);
+  }
   updateStoredData();
   resetPreviewImage();
   setView('entries');
 }
-$newEntryForm.addEventListener('submit', submitHandler);
+$entryForm.addEventListener('submit', submitHandler);
 window.addEventListener('keydown', function (event) {
   if (event.key === 'Enter' && event.ctrlKey) {
-    $newEntryForm.requestSubmit();
+    $entryForm.requestSubmit();
   }
 });
 
@@ -120,8 +128,9 @@ function createJournalEntryDOM(entry) {
 var $entryFormHeader = document.querySelector('#entryFormHeader');
 
 function newEntryHandler(event) {
+  data.editing = null;
   $entryFormHeader.textContent = 'New Entry';
-  $newEntryForm.reset();
+  $entryForm.reset();
   updatePreviewImage();
   setView('entry-form');
 }
@@ -163,9 +172,19 @@ function getEntryObjectFromId(id) {
   });
 }
 
+function getEntryDivFromId(id) {
+  var $journalEntries = document.querySelectorAll('.journal-entry');
+  for (var entryLi = 0; entryLi < $journalEntries.length; entryLi++) {
+    if (JSON.parse($journalEntries[entryLi].dataset.entryId) === id) {
+      return $journalEntries[entryLi];
+    }
+  }
+}
+
 var $entryDisplay = document.querySelector('#entry-display');
 
 function editFormFiller(obj) {
+  $entryFormHeader.textContent = 'Edit Entry';
   $entryTitle.value = obj.title;
   $photoUrl.value = obj.photoUrl;
   $entryNotes.value = obj.notes;
