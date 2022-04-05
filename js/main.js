@@ -153,10 +153,10 @@ var $entryDisplay = document.querySelector('#entry-display');
 
 function editButtonHandler(event) {
   if (event.target.classList.contains('edit-button')) {
-    setView('entry-form');
     var $correspondingDiv = event.target.closest('[data-entry-id]');
     var correspondingEntryId = $correspondingDiv.dataset.entryId;
     data.editing = getEntryObjectFromId(JSON.parse(correspondingEntryId));
+    setView('entry-form');
   }
 }
 $entryDisplay.addEventListener('click', editButtonHandler);
