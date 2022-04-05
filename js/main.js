@@ -96,3 +96,14 @@ function createJournalEntryDOM(entry) {
 
   return $listItem;
 }
+
+//! INITIALIZE PAGE
+function pageLoad(event) {
+  var $entryDisplay = document.querySelector('#entry-display');
+  var journalEntries = data.entries;
+  for (var entryIndex = 0; entryIndex < data.entries.length; entryIndex++) {
+    $entryDisplay.append(createJournalEntryDOM(journalEntries[entryIndex]));
+  }
+}
+
+window.addEventListener('DOMContentLoaded', pageLoad);
