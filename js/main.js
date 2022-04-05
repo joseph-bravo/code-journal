@@ -38,8 +38,11 @@ function submitHandler(event) {
   data.entries.unshift(entryObj);
   $newEntryForm.reset();
 
+  $entryDisplay.prepend(createJournalEntryDOM(entryObj));
+
   updateStoredData();
   resetPreviewImage();
+  setView('entries');
 }
 
 $newEntryForm.addEventListener('submit', submitHandler);
@@ -97,10 +100,45 @@ function createJournalEntryDOM(entry) {
   return $listItem;
 }
 
+var $views = document.querySelectorAll('[data-view]');
+
+function setView(viewString) {
+  checkForPosts();
+  for (var viewIndex = 0; viewIndex < $views.length; viewIndex++) {
+    if ($views[viewIndex].dataset.view === viewString) {
+      $views[viewIndex].classList.remove('hidden');
+    } else {
+      $views[viewIndex].classList.add('hidden');
+    }
+  }
+  data.view = viewString;
+  updateStoredData();
+}
+
+var $viewNav = document.querySelectorAll('[data-nav]');
+
+for (var navIndex = 0; navIndex < $viewNav.length; navIndex++) {
+  $viewNav[navIndex].addEventListener('click', function (event) {
+    setView(event.target.dataset.nav);
+  });
+}
+
+function checkForPosts() {
+  if (journalEntries.length > 0) {
+    $noEntryMessage.classList.add('hidden');
+  } else {
+    $noEntryMessage.classList.remove('hidden');
+  }
+}
+
 //! INITIALIZE PAGE
+var $entryDisplay = document.querySelector('#entry-display');
+var journalEntries = data.entries;
+var $noEntryMessage = document.querySelector('.no-entry-message');
+
 function pageLoad(event) {
-  var $entryDisplay = document.querySelector('#entry-display');
-  var journalEntries = data.entries;
+  setView(data.view);
+  checkForPosts();
   for (var entryIndex = 0; entryIndex < data.entries.length; entryIndex++) {
     $entryDisplay.append(createJournalEntryDOM(journalEntries[entryIndex]));
   }

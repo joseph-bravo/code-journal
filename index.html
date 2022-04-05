@@ -29,7 +29,7 @@
         </div>
         <div class="column-content">
           <nav class="row align-center full-height">
-            <a>Entries</a>
+            <a data-nav="entries">Entries</a>
           </nav>
         </div>
       </div>
@@ -43,16 +43,20 @@
         <div class="column-full">
           <div class="row justify-space-between align-center">
             <h2>Entries</h2>
-            <button class="button-new margin-vert-auto">New</button>
+            <button data-nav="entry-form" class="button-new margin-vert-auto">New</button>
           </div>
         </div>
       </div>
       <ul id="entry-display">
-
+        <li class="row no-entry-message">
+          <div class="column-full">
+            <p class="txt-align-center">No entries have been recorded.</p>
+          </div>
+        </li>
       </ul>
     </div>
 
-    <div class="" data-view="entry-form">
+    <div class="hidden" data-view="entry-form">
 
       <div class="row">
         <div class="column-full">
