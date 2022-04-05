@@ -2,18 +2,18 @@
 /* exported updateStoredData */
 
 var data = {
-  view: "entry-form",
+  view: 'entry-form',
   entries: [],
   editing: null,
-  nextEntryId: 1,
+  nextEntryId: 1
 };
 
 function updateStoredData() {
-  localStorage.setItem("data", JSON.stringify(data));
+  localStorage.setItem('data', JSON.stringify(data));
 }
 
 function readStoredData() {
-  var storedData = localStorage.getItem("data");
+  var storedData = localStorage.getItem('data');
   if (storedData) {
     data = JSON.parse(storedData);
   }
