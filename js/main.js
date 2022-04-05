@@ -10,7 +10,12 @@ var $entryNotes = $newEntryForm['notes-entry'];
 var $imagePreview = document.querySelector('.entry-img-preview');
 
 function updatePreviewImage() {
-  $imagePreview.setAttribute('src', $photoUrl.value);
+  if ($photoUrl.value) {
+    $imagePreview.setAttribute('src', $photoUrl.value);
+  } else {
+    $imagePreview.setAttribute('src', 'images/placeholder-image-square.jpg');
+  }
+
 }
 
 function resetPreviewImage() {
@@ -117,6 +122,7 @@ var $entryFormHeader = document.querySelector('#entryFormHeader');
 function newEntryHandler(event) {
   $entryFormHeader.textContent = 'New Entry';
   $newEntryForm.reset();
+  updatePreviewImage();
   setView('entry-form');
 }
 var $buttonNewEntry = document.querySelector('.button-new');
