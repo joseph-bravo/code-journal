@@ -21,7 +21,15 @@ $photoUrl.addEventListener('input', updatePreviewImage);
 
 function submitHandler(event) {
   event.preventDefault();
+
   var entryObj = {};
+
+  // entryObj ⬇️
+  // title: string
+  // photoUrl: string
+  // notes: string
+  // entryId: number
+
   entryObj.title = $entryTitle.value;
   entryObj.photoUrl = $photoUrl.value;
   entryObj.notes = $entryNotes.value;
@@ -41,3 +49,50 @@ window.addEventListener('keydown', function (event) {
     $newEntryForm.requestSubmit();
   }
 });
+
+function createJournalEntryDOM(entry) {
+
+  // <li class="row journal-entry">
+  //   <div class="column-half">
+  //     <img class="entry-img" src="https://c.tenor.com/a1iw8cAQKisAAAAM/dance-dance-moves.gif">
+  //   </div>
+  //   <div class="column-half">
+  //     <h3>Bababooey</h3>
+  //     <p>Lorem</p>
+  //     <p>Lorem</p>
+  //   </div>
+  // </li>
+
+  var $imgDiv = document.createElement('div');
+  $imgDiv.classList.add('column-half');
+  var $img = document.createElement('img');
+  $img.classList.add('entry-img');
+  $img.src = (entry.photoUrl);
+  $imgDiv.append($img);
+  // imgDiv > img.entry-img
+
+  var $textDiv = document.createElement('div');
+  $textDiv.classList.add('column-half');
+  var $h3 = document.createElement('h3');
+  $h3.textContent = entry.title;
+  $textDiv.append($h3);
+  // textDiv > h3
+
+  var notesSplit = entry.notes.split('\n');
+  var notesSplitFiltered = notesSplit.filter(function (element) {
+    return (element);
+  });
+  for (var noteP = 0; noteP < notesSplitFiltered.length; noteP++) {
+    var paragraph = document.createElement('p');
+    paragraph.textContent = notesSplitFiltered[noteP];
+    $textDiv.append(paragraph);
+  }
+  // textDiv > h3 / p / p ...
+
+  var $listItem = document.createElement('li');
+  $listItem.classList.add('row', 'journal-entry');
+  $listItem.append($imgDiv, $textDiv);
+  // listItem > imgDiv / textDiv ...
+
+  return $listItem;
+}
