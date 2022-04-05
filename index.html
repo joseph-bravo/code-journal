@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Code Journal</title>
   <link rel="icon" href="images/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Proza+Libre:wght@400;600&display=swap" rel="stylesheet">
   <link
     rel="stylesheet"
     crossorigin="anonymous"
@@ -15,10 +18,62 @@
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-  <header>
+
+  <header class="txt-color-white">
+    <div class="container logo">
+      <div class="row">
+        <div class="column-full">
+          <h1>Code Journal</h1>
+        </div>
+      </div>
+    </div>
   </header>
-  <main>
+
+  <main class="container">
+
+    <div data-view="entry-form">
+
+      <div class="row">
+        <div class="column-full">
+          <h2>New Entry</h2>
+        </div>
+      </div>
+
+      <form id="new-entry">
+        <div class="row">
+          <div class="column-half bottom-margin-1rem">
+            <img class="entry-thumbnail" src="images/placeholder-image-square.jpg">
+          </div>
+          <div class="column-half">
+            <div class="row">
+              <div class="column-full bottom-margin-1rem">
+                <label class="remove-top-margin" for="title-entry">Title</label>
+                <input required type="text" id="title-entry">
+              </div>
+              <div class="column-full bottom-margin-1rem">
+                <label for="photo-url">Photo URL</label>
+                <input required type="url" id="photo-url">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="column-full bottom-margin-1rem">
+            <label for="notes-entry">Notes</label>
+            <textarea required id="notes-entry"></textarea>
+          </div>
+        </div>
+        <div class="row justify-right">
+          <div class="column-content">
+            <button form="new-entry" id="submit" class="txt-color-white button-save">Save</button>
+          </div>
+        </div>
+      </form>
+
+    </div>
   </main>
+
+  <!-- SCRIPT LOADING -->
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>
 </body>
