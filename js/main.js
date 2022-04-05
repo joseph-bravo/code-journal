@@ -44,9 +44,7 @@ function submitHandler(event) {
   resetPreviewImage();
   setView('entries');
 }
-
 $newEntryForm.addEventListener('submit', submitHandler);
-
 window.addEventListener('keydown', function (event) {
   if (event.key === 'Enter' && event.ctrlKey) {
     $newEntryForm.requestSubmit();
@@ -115,6 +113,7 @@ function createJournalEntryDOM(entry) {
 }
 
 var $views = document.querySelectorAll('[data-view]');
+
 function setView(viewString) {
   checkForPosts();
   for (var viewIndex = 0; viewIndex < $views.length; viewIndex++) {
@@ -129,6 +128,7 @@ function setView(viewString) {
 }
 
 var $viewNav = document.querySelectorAll('[data-nav]');
+
 for (var navIndex = 0; navIndex < $viewNav.length; navIndex++) {
   $viewNav[navIndex].addEventListener('click', function (event) {
     setView(event.target.dataset.nav);
@@ -143,13 +143,21 @@ function checkForPosts() {
   }
 }
 
+function getEntryObjectFromId(id) {
+  return data.entries.find(function (element) {
+    return element.entryId === id;
+  });
+}
+
 var $entryDisplay = document.querySelector('#entry-display');
+
 function editButtonHandler(event) {
   if (event.target.classList.contains('edit-button')) {
     setView('entry-form');
+    var $correspondingDiv = event.target.closest('[data-entry-id]');
+    var correspondingEntryId = $correspondingDiv.dataset.entryId;
+    data.editing = getEntryObjectFromId(JSON.parse(correspondingEntryId));
   }
-  console.dir(event);
-  console.log(event.target);
 }
 $entryDisplay.addEventListener('click', editButtonHandler);
 
