@@ -55,12 +55,16 @@ window.addEventListener('keydown', function (event) {
 
 function createJournalEntryDOM(entry) {
 
-  // <li class="row journal-entry">
+  // <li class="row journal-entry" data-entry-id="1">
   //   <div class="column-half">
-  //     <img class="entry-img" src="https://c.tenor.com/a1iw8cAQKisAAAAM/dance-dance-moves.gif">
+  //     <img class="entry-img" src="https://c.tenor.com/itjaaJTQUEYAAAAd/cat-vibing.gif">
   //   </div>
   //   <div class="column-half">
-  //     <h3>Bababooey</h3>
+  //     <div class="row space-between">
+  //       <h3>gha</h3>
+  //       <a class="edit-button fa fa-edit"></a>
+  //     </div>
+  //     <p>Lorem</p>
   //     <p>Lorem</p>
   //     <p>Lorem</p>
   //   </div>
@@ -76,10 +80,19 @@ function createJournalEntryDOM(entry) {
 
   var $textDiv = document.createElement('div');
   $textDiv.classList.add('column-half');
+
+  var $headerDiv = document.createElement('div');
+  $headerDiv.classList.add('row', 'space-between');
   var $h3 = document.createElement('h3');
   $h3.textContent = entry.title;
-  $textDiv.append($h3);
-  // textDiv > h3
+  var $anchor = document.createElement('a');
+  $anchor.classList.add('edit-button', 'fa', 'fa-edit');
+
+  $headerDiv.append($h3, $anchor);
+  // headerDiv > h3 / icon
+
+  $textDiv.append($headerDiv);
+  // textDiv > headerDiv
 
   var notesSplit = entry.notes.split('\n');
   var notesSplitFiltered = notesSplit.filter(function (element) {
@@ -90,10 +103,11 @@ function createJournalEntryDOM(entry) {
     paragraph.textContent = notesSplitFiltered[noteP];
     $textDiv.append(paragraph);
   }
-  // textDiv > h3 / p / p ...
+  // textDiv > headerDiv / p / p ...
 
   var $listItem = document.createElement('li');
   $listItem.classList.add('row', 'journal-entry');
+  $listItem.setAttribute('data-entry-id', entry.entryId);
   $listItem.append($imgDiv, $textDiv);
   // listItem > imgDiv / textDiv ...
 
@@ -101,7 +115,6 @@ function createJournalEntryDOM(entry) {
 }
 
 var $views = document.querySelectorAll('[data-view]');
-
 function setView(viewString) {
   checkForPosts();
   for (var viewIndex = 0; viewIndex < $views.length; viewIndex++) {
@@ -116,7 +129,6 @@ function setView(viewString) {
 }
 
 var $viewNav = document.querySelectorAll('[data-nav]');
-
 for (var navIndex = 0; navIndex < $viewNav.length; navIndex++) {
   $viewNav[navIndex].addEventListener('click', function (event) {
     setView(event.target.dataset.nav);
@@ -131,8 +143,17 @@ function checkForPosts() {
   }
 }
 
-//! INITIALIZE PAGE
 var $entryDisplay = document.querySelector('#entry-display');
+function editButtonHandler(event) {
+  if (event.target.classList.contains('edit-button')) {
+    setView('entry-form');
+  }
+  console.dir(event);
+  console.log(event.target);
+}
+$entryDisplay.addEventListener('click', editButtonHandler);
+
+//! INITIALIZE PAGE
 var journalEntries = data.entries;
 var $noEntryMessage = document.querySelector('.no-entry-message');
 
