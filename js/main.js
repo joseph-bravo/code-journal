@@ -9,7 +9,7 @@ var $entryNotes = $newEntryForm['notes-entry'];
 
 var $imagePreview = document.querySelector('.entry-img-preview');
 
-function updatePreviewImage(event) {
+function updatePreviewImage() {
   $imagePreview.setAttribute('src', $photoUrl.value);
 }
 
@@ -112,8 +112,24 @@ function createJournalEntryDOM(entry) {
   return $listItem;
 }
 
-var $views = document.querySelectorAll('[data-view]');
+var $entryFormHeader = document.querySelector('#entryFormHeader');
 
+function newEntryHandler(event) {
+  $entryFormHeader.textContent = 'New Entry';
+  $newEntryForm.reset();
+  setView('entry-form');
+}
+var $buttonNewEntry = document.querySelector('.button-new');
+$buttonNewEntry.addEventListener('click', newEntryHandler);
+
+// data-nav handling
+var $views = document.querySelectorAll('[data-view]');
+var $viewNav = document.querySelectorAll('[data-nav]');
+for (var navIndex = 0; navIndex < $viewNav.length; navIndex++) {
+  $viewNav[navIndex].addEventListener('click', function (event) {
+    setView(event.target.dataset.nav);
+  });
+}
 function setView(viewString) {
   checkForPosts();
   for (var viewIndex = 0; viewIndex < $views.length; viewIndex++) {
@@ -125,14 +141,6 @@ function setView(viewString) {
   }
   data.view = viewString;
   updateStoredData();
-}
-
-var $viewNav = document.querySelectorAll('[data-nav]');
-
-for (var navIndex = 0; navIndex < $viewNav.length; navIndex++) {
-  $viewNav[navIndex].addEventListener('click', function (event) {
-    setView(event.target.dataset.nav);
-  });
 }
 
 function checkForPosts() {
@@ -151,11 +159,19 @@ function getEntryObjectFromId(id) {
 
 var $entryDisplay = document.querySelector('#entry-display');
 
+function editFormFiller(obj) {
+  $entryTitle.value = obj.title;
+  $photoUrl.value = obj.photoUrl;
+  $entryNotes.value = obj.notes;
+  updatePreviewImage();
+}
+
 function editButtonHandler(event) {
   if (event.target.classList.contains('edit-button')) {
     var $correspondingDiv = event.target.closest('[data-entry-id]');
     var correspondingEntryId = $correspondingDiv.dataset.entryId;
     data.editing = getEntryObjectFromId(JSON.parse(correspondingEntryId));
+    editFormFiller(data.editing);
     setView('entry-form');
   }
 }
