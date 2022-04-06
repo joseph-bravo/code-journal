@@ -60,19 +60,24 @@ function submitHandler(event) {
     entryObj.dateCreated = new Date();
     entryObj.lastModified = new Date();
     entryObj.tags = entryTagHandler($entryTags.value);
-    data.nextEntryId++;
     data.entries.unshift(entryObj);
+    data.nextEntryId++;
     $entryForm.reset();
-    $entryDisplay.prepend(createJournalEntryDOM(entryObj));
+
+    var $newEntryDiv = createJournalEntryDOM(entryObj);
+    $entryDisplay.prepend($newEntryDiv);
+
   } else {
     data.editing.title = $entryTitle.value;
     data.editing.photoUrl = $photoUrl.value;
     data.editing.notes = $entryNotes.value;
     data.editing.lastModified = new Date();
     data.editing.tags = entryTagHandler($entryTags.value);
+
     var $oldDiv = getEntryDivFromId(data.editing.entryId);
     var $newDiv = createJournalEntryDOM(data.editing);
     $entryDisplay.replaceChild($newDiv, $oldDiv);
+
   }
   updateStoredData();
   resetPreviewImage();
@@ -157,7 +162,7 @@ function createJournalEntryDOM(entry) {
   $listItem.setAttribute('data-entry-id', entry.entryId);
   $listItem.append($imgDiv, $textDiv);
   // listItem > imgDiv / textDiv ...
-
+  entry.dom = $listItem;
   return $listItem;
 }
 var $formHeaderNew = document.querySelector('.new-entry-head');
