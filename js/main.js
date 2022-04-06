@@ -126,13 +126,16 @@ function createJournalEntryDOM(entry) {
 
   return $listItem;
 }
-
-var $entryFormHeader = document.querySelector('#entryFormHeader');
+var $formHeaderNew = document.querySelector('.new-entry-head');
+var $formHeaderEdit = document.querySelector('.edit-entry-head');
 
 function newEntryHandler(event) {
   $deleteTarget.classList.add('hidden');
   data.editing = null;
-  $entryFormHeader.textContent = 'New Entry';
+
+  $formHeaderEdit.classList.add('hidden');
+  $formHeaderNew.classList.remove('hidden');
+
   $entryForm.reset();
   updatePreviewImage();
   setView('entry-form');
@@ -188,7 +191,8 @@ var $entryDisplay = document.querySelector('#entry-display');
 
 function editFormFiller(obj) {
 
-  $entryFormHeader.textContent = 'Edit Entry';
+  $formHeaderEdit.classList.remove('hidden');
+  $formHeaderNew.classList.add('hidden');
   $entryTitle.value = obj.title;
   $photoUrl.value = obj.photoUrl;
   $entryNotes.value = obj.notes;

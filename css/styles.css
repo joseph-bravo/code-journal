@@ -1,15 +1,17 @@
 * {
   font-family: "Open Sans", sans-serif;
+  color: #1c1f22;
 }
 
 h1,
 h2,
-label {
+label,
+a {
   font-family: "Proza Libre", sans-serif;
 }
 
 header {
-  background: #562b81;
+  background: #a1e8cc;
   width: 100%;
   height: 3.3rem;
 }
@@ -21,7 +23,7 @@ p {
   width: 100%;
 }
 
-.logo h1 {
+/* .logo h1 {
   font-size: 1.25rem;
   font-weight: 400;
   line-height: 2rem;
@@ -32,6 +34,11 @@ p {
   border: 1px solid white;
   border-radius: 10px;
   box-shadow: 0 0 2px white;
+} */
+
+.logo {
+  max-height: 70%;
+  margin-right: 1rem;
 }
 
 a {
@@ -39,7 +46,7 @@ a {
 }
 
 a:hover {
-  color: #e1c2ff;
+  color: #833fc7;
   cursor: pointer;
 }
 
@@ -85,10 +92,10 @@ label {
 button {
   display: block;
   color: white;
-  background-color: #562b81;
+  background-color: #1c1f22;
   border-radius: 4px;
   border: 0;
-  text-transform: uppercase;
+  text-transform: lowercase;
   height: 2rem;
   font-size: 1rem;
   box-shadow: 1px 1px 1px black;
@@ -106,6 +113,7 @@ button:active {
 
 .button-save {
   width: 4.5rem;
+  margin-bottom: 1rem;
 }
 
 .button-new {
@@ -117,7 +125,6 @@ button:active {
   margin-bottom: auto;
   margin-left: auto;
   font-size: 1.5rem;
-  color: #562b81;
 }
 
 a.edit-button:hover {
@@ -148,7 +155,7 @@ textarea {
 
 input:focus,
 textarea:focus {
-  outline: 2px solid #562b81;
+  outline: 2px solid #a1e8cc;
 }
 
 img.entry-img {
@@ -167,9 +174,20 @@ img.entry-img {
   margin-bottom: 1rem;
 }
 
+.no-entry-message {
+  margin-top: 0.75rem;
+}
+
 .journal-entry {
   margin-top: 0.75rem;
   margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  padding-top: 2rem;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+.journal-entry:last-of-type {
+  border-bottom: 0;
 }
 
 .delete-target {

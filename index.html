@@ -32,16 +32,16 @@
   </div>
 
   <header class="txt-color-white">
-    <div class="container logo full-height">
+    <div class="container full-height">
       <div class="row full-height">
-        <div class="column-content">
+        <div class="column-content full-height">
           <div class="row align-center full-height">
-            <h1>Code Journal</h1>
+            <img class="logo" src="images/logo.gif">
           </div>
         </div>
         <div class="column-content">
           <nav class="row align-center full-height">
-            <a data-nav="entries">Entries</a>
+            <a data-nav="entries">entries</a>
           </nav>
         </div>
       </div>
@@ -54,17 +54,18 @@
       <div class="row">
         <div class="column-full">
           <div class="row justify-space-between align-center">
-            <h2>Entries</h2>
+            <h2>entries</h2>
             <button class="button-new margin-vert-auto">New</button>
           </div>
         </div>
       </div>
+      <div class="row no-entry-message">
+        <div class="column-full">
+          <p class="txt-align-center">~ no entries have been recorded ~</p>
+        </div>
+      </div>
       <ul id="entry-display">
-        <li class="row no-entry-message">
-          <div class="column-full">
-            <p class="txt-align-center">No entries have been recorded.</p>
-          </div>
-        </li>
+
       </ul>
     </div>
 
@@ -72,7 +73,8 @@
 
       <div class="row">
         <div class="column-full">
-          <h2 id="entryFormHeader">New Entry</h2>
+          <h2 class="new-entry-head">new entry</h2>
+          <h2 class="hidden edit-entry-head">edit entry</h2>
         </div>
       </div>
 
@@ -84,11 +86,11 @@
           <div class="column-half">
             <div class="row">
               <div class="column-full bottom-margin-1rem">
-                <label class="remove-top-margin" for="title-entry">Title</label>
+                <label class="remove-top-margin" for="title-entry">title</label>
                 <input required type="text" id="title-entry">
               </div>
               <div class="column-full bottom-margin-1rem">
-                <label for="photo-url">Photo URL</label>
+                <label for="photo-url">photo url</label>
                 <input required type="url" id="photo-url">
               </div>
             </div>
@@ -96,13 +98,13 @@
         </div>
         <div class="row">
           <div class="column-full bottom-margin-1rem">
-            <label for="notes-entry">Notes</label>
+            <label for="notes-entry">notes</label>
             <textarea required id="notes-entry"></textarea>
           </div>
         </div>
         <div class="row justify-space-between">
           <div class="column-content">
-            <a class="delete-target hidden">Delete Entry</a>
+            <a class="delete-target hidden">delete entry</a>
           </div>
           <div class="column-content">
             <button form="entry-form" id="submit"
