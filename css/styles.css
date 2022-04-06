@@ -172,6 +172,18 @@ img.entry-img {
   margin-bottom: 2rem;
 }
 
+.delete-target {
+  color: red;
+}
+
+.delete-target:hover {
+  color: rgb(184, 0, 0);
+}
+
+.delete-target:active {
+  color: rgb(63, 0, 0);
+}
+
 .modal {
   position: fixed;
   z-index: 1;

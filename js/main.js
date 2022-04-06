@@ -215,6 +215,21 @@ $deleteTarget.addEventListener('click', deleteButtonHandler);
 var $deleteConfirm = document.querySelector('button.confirm');
 var $deleteCancel = document.querySelector('button.cancel');
 
+function popupHandler(event) {
+  if (event.target === $deleteCancel) {
+    $deletePopup.classList.add('hidden');
+  }
+  if (event.target === $deleteConfirm) {
+    var $divToDelete = getEntryDivFromId(data.editing.entryId);
+    data.entries.splice((data.entries.indexOf(data.editing)), 1);
+    $divToDelete.remove();
+    $deletePopup.classList.add('hidden');
+    setView('entries');
+  }
+}
+
+$deletePopup.addEventListener('click', popupHandler);
+
 //! INITIALIZE PAGE
 var journalEntries = data.entries;
 var $noEntryMessage = document.querySelector('.no-entry-message');
