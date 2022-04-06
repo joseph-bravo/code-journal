@@ -14,10 +14,51 @@ var data = {
   editing: null,
   nextEntryId: 1,
   getEntryObject: function (id) {
-    return this.entries[id];
+    return data.entries.find(function (element) {
+      return element.entryId === id;
+    });
   },
-  getEntryDom: function (id) {
-    return this.entries[id].dom;
+  sortByDateAdded: function (reverse) {
+    var sortingArray = this.entries.slice();
+    sortingArray.sort(function (a, b) {
+      return a.dateCreated.getTime() - b.dateCreated.getTime();
+    });
+    if (reverse) {
+      sortingArray.reverse();
+    }
+    return sortingArray;
+  },
+  sortByLastModified: function (reverse) {
+    var sortingArray = this.entries.slice();
+    sortingArray.sort(function (a, b) {
+      return a.lastModified.getTime() - b.lastModified.getTime();
+    });
+    if (reverse) {
+      sortingArray.reverse();
+    }
+    return sortingArray;
+  },
+  sortByAlphabet: function (reverse) {
+    var sortingArray = this.entries.slice();
+    sortingArray.sort(function (a, b) {
+      var nameA = a.title.toUpperCase();
+      var nameB = b.title.toUpperCase();
+      if (nameA > nameB) {
+        return 1;
+      } else if (nameA < nameB) {
+        return -1;
+      } else {
+        return 0;
+      }
+    });
+    if (reverse) {
+      sortingArray.reverse();
+    }
+    return sortingArray;
+  },
+  reset: function () {
+    localStorage.removeItem('data');
+    location.reload();
   }
 };
 
