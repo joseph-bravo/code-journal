@@ -36,12 +36,17 @@ function submitHandler(event) {
   // photoUrl: string
   // notes: string
   // entryId: number
+  // dateCreated: new Date()
+  // lastModified: new Date()
+
   if (data.editing === null) {
 
     entryObj.title = $entryTitle.value;
     entryObj.photoUrl = $photoUrl.value;
     entryObj.notes = $entryNotes.value;
     entryObj.entryId = data.nextEntryId;
+    entryObj.dateCreated = new Date();
+    entryObj.lastModified = new Date();
     data.nextEntryId++;
     data.entries.unshift(entryObj);
     $entryForm.reset();
@@ -51,6 +56,7 @@ function submitHandler(event) {
     data.editing.title = $entryTitle.value;
     data.editing.photoUrl = $photoUrl.value;
     data.editing.notes = $entryNotes.value;
+    data.editing.lastModified = new Date();
     var $oldDiv = getEntryDivFromId(data.editing.entryId);
     var $newDiv = createJournalEntryDOM(data.editing);
     $entryDisplay.replaceChild($newDiv, $oldDiv);
