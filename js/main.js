@@ -6,6 +6,7 @@ var $entryForm = document.forms['entry-form'];
 var $entryTitle = $entryForm['title-entry'];
 var $photoUrl = $entryForm['photo-url'];
 var $entryNotes = $entryForm['notes-entry'];
+var $entryTags = $entryForm.tags;
 
 var $imagePreview = document.querySelector('.entry-img-preview');
 
@@ -26,6 +27,17 @@ function resetPreviewImage() {
 
 $photoUrl.addEventListener('input', updatePreviewImage);
 
+function entryTagHandler(string) {
+  var output = [];
+  var splitArray = string.split(' ');
+  for (var tagIndex = 0; tagIndex < splitArray.length; tagIndex++) {
+    if (!output.includes(splitArray[tagIndex])) {
+      output.push(splitArray[tagIndex]);
+    }
+  }
+  return output;
+}
+
 function submitHandler(event) {
   event.preventDefault();
 
@@ -38,25 +50,26 @@ function submitHandler(event) {
   // entryId: number
   // dateCreated: new Date()
   // lastModified: new Date()
+  // tags: array
 
   if (data.editing === null) {
-
     entryObj.title = $entryTitle.value;
     entryObj.photoUrl = $photoUrl.value;
     entryObj.notes = $entryNotes.value;
     entryObj.entryId = data.nextEntryId;
     entryObj.dateCreated = new Date();
     entryObj.lastModified = new Date();
+    entryObj.tags = entryTagHandler($entryTags.value);
     data.nextEntryId++;
     data.entries.unshift(entryObj);
     $entryForm.reset();
     $entryDisplay.prepend(createJournalEntryDOM(entryObj));
   } else {
-
     data.editing.title = $entryTitle.value;
     data.editing.photoUrl = $photoUrl.value;
     data.editing.notes = $entryNotes.value;
     data.editing.lastModified = new Date();
+    data.editing.tags = entryTagHandler($entryTags.value);
     var $oldDiv = getEntryDivFromId(data.editing.entryId);
     var $newDiv = createJournalEntryDOM(data.editing);
     $entryDisplay.replaceChild($newDiv, $oldDiv);

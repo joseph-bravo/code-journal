@@ -6,6 +6,7 @@
 // photoUrl: string
 // notes: string
 // entryId: number
+// tags: array of strings
 
 var data = {
   view: 'entry-form',
