@@ -207,6 +207,14 @@ function editButtonHandler(event) {
 }
 $entryDisplay.addEventListener('click', editButtonHandler);
 
+var $deletePopup = document.querySelector('.modal');
+function deleteButtonHandler(event) {
+  $deletePopup.classList.remove('hidden');
+}
+$deleteTarget.addEventListener('click', deleteButtonHandler);
+var $deleteConfirm = document.querySelector('button.confirm');
+var $deleteCancel = document.querySelector('button.cancel');
+
 //! INITIALIZE PAGE
 var journalEntries = data.entries;
 var $noEntryMessage = document.querySelector('.no-entry-message');
