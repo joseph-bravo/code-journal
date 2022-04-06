@@ -1,6 +1,12 @@
 /* exported data */
 /* exported updateStoredData */
 
+// entryObj =
+// title: string
+// photoUrl: string
+// notes: string
+// entryId: number
+
 var data = {
   view: 'entry-form',
   entries: [],

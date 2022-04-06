@@ -43,7 +43,7 @@
         <div class="column-full">
           <div class="row justify-space-between align-center">
             <h2>Entries</h2>
-            <button data-nav="entry-form" class="button-new margin-vert-auto">New</button>
+            <button class="button-new margin-vert-auto">New</button>
           </div>
         </div>
       </div>
@@ -60,11 +60,11 @@
 
       <div class="row">
         <div class="column-full">
-          <h2>New Entry</h2>
+          <h2 id="entryFormHeader">New Entry</h2>
         </div>
       </div>
 
-      <form id="new-entry">
+      <form id="entry-form">
         <div class="row">
           <div class="column-half bottom-margin-1rem">
             <img class="entry-img entry-img-preview" src="images/placeholder-image-square.jpg">
@@ -90,7 +90,9 @@
         </div>
         <div class="row justify-right">
           <div class="column-content">
-            <button form="new-entry" id="submit" class="txt-color-white button-save">Save</button>
+            <button form="entry-form" id="submit"
+              class="txt-color-white button-save">Save
+            </button>
           </div>
         </div>
       </form>
