@@ -9,6 +9,8 @@ var $entryNotes = $entryForm['notes-entry'];
 
 var $imagePreview = document.querySelector('.entry-img-preview');
 
+var $deleteTarget = document.querySelector('.delete-target');
+
 function updatePreviewImage() {
   if ($photoUrl.value) {
     $imagePreview.setAttribute('src', $photoUrl.value);
@@ -128,6 +130,7 @@ function createJournalEntryDOM(entry) {
 var $entryFormHeader = document.querySelector('#entryFormHeader');
 
 function newEntryHandler(event) {
+  $deleteTarget.classList.add('hidden');
   data.editing = null;
   $entryFormHeader.textContent = 'New Entry';
   $entryForm.reset();
@@ -184,6 +187,7 @@ function getEntryDivFromId(id) {
 var $entryDisplay = document.querySelector('#entry-display');
 
 function editFormFiller(obj) {
+
   $entryFormHeader.textContent = 'Edit Entry';
   $entryTitle.value = obj.title;
   $photoUrl.value = obj.photoUrl;
@@ -197,6 +201,7 @@ function editButtonHandler(event) {
     var correspondingEntryId = $correspondingDiv.dataset.entryId;
     data.editing = getEntryObjectFromId(JSON.parse(correspondingEntryId));
     editFormFiller(data.editing);
+    $deleteTarget.classList.remove('hidden');
     setView('entry-form');
   }
 }
