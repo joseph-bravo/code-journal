@@ -22,6 +22,10 @@ function readStoredData() {
   var storedData = localStorage.getItem('data');
   if (storedData) {
     data = JSON.parse(storedData);
+    for (var i = 0; i < data.entries.length; i++) {
+      data.entries[i].dateCreated = new Date(data.entries[i].dateCreated);
+      data.entries[i].lastModified = new Date(data.entries[i].lastModified);
+    }
   }
 }
 
