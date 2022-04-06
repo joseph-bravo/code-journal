@@ -36,12 +36,17 @@ function submitHandler(event) {
   // photoUrl: string
   // notes: string
   // entryId: number
+  // dateCreated: new Date()
+  // lastModified: new Date()
+
   if (data.editing === null) {
 
     entryObj.title = $entryTitle.value;
     entryObj.photoUrl = $photoUrl.value;
     entryObj.notes = $entryNotes.value;
     entryObj.entryId = data.nextEntryId;
+    entryObj.dateCreated = new Date();
+    entryObj.lastModified = new Date();
     data.nextEntryId++;
     data.entries.unshift(entryObj);
     $entryForm.reset();
@@ -51,6 +56,7 @@ function submitHandler(event) {
     data.editing.title = $entryTitle.value;
     data.editing.photoUrl = $photoUrl.value;
     data.editing.notes = $entryNotes.value;
+    data.editing.lastModified = new Date();
     var $oldDiv = getEntryDivFromId(data.editing.entryId);
     var $newDiv = createJournalEntryDOM(data.editing);
     $entryDisplay.replaceChild($newDiv, $oldDiv);
@@ -66,22 +72,29 @@ window.addEventListener('keydown', function (event) {
   }
 });
 
+var dateFormat = new Intl.DateTimeFormat([], { dateStyle: 'medium', timeStyle: 'short' });
+
 function createJournalEntryDOM(entry) {
 
-  // <li class="row journal-entry" data-entry-id="1">
-  //   <div class="column-half">
-  //     <img class="entry-img" src="https://c.tenor.com/itjaaJTQUEYAAAAd/cat-vibing.gif">
-  //   </div>
-  //   <div class="column-half">
-  //     <div class="row space-between">
-  //       <h3>gha</h3>
-  //       <a class="edit-button fa fa-edit"></a>
-  //     </div>
-  //     <p>Lorem</p>
-  //     <p>Lorem</p>
-  //     <p>Lorem</p>
-  //   </div>
-  // </li>
+  /*
+  <li class="row journal-entry" data-entry-id="1">
+    <div class="column-half">
+      <img class="entry-img" src="https://c.tenor.com/itjaaJTQUEYAAAAd/cat-vibing.gif">
+    </div>
+    <div class="column-half">
+      <div class="row space-between">
+        <div class="column-content">
+          <h3>title
+          <h4>April 6th, 2022 / 12:30pm
+        </div>
+        <a class="edit-button fa fa-edit"></a>
+      </div>
+      <p>Lorem</p>
+      <p>Lorem</p>
+      <p>Lorem</p>
+    </div>
+  </li>
+  */
 
   var $imgDiv = document.createElement('div');
   $imgDiv.classList.add('column-half');
@@ -96,13 +109,21 @@ function createJournalEntryDOM(entry) {
 
   var $headerDiv = document.createElement('div');
   $headerDiv.classList.add('row', 'space-between');
+
   var $h3 = document.createElement('h3');
   $h3.textContent = entry.title;
+  var $date = document.createElement('h4');
+  $date.textContent = dateFormat.format(entry.dateCreated);
+
+  var $h3AndDate = document.createElement('div');
+  $h3AndDate.classList.add('header-and-date');
+  $h3AndDate.append($h3, $date);
+
   var $anchor = document.createElement('a');
   $anchor.classList.add('edit-button', 'fa', 'fa-edit');
 
-  $headerDiv.append($h3, $anchor);
-  // headerDiv > h3 / icon
+  $headerDiv.append($h3AndDate, $anchor);
+  // headerDiv > h3 & date / icon
 
   $textDiv.append($headerDiv);
   // textDiv > headerDiv
