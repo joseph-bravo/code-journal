@@ -7,9 +7,12 @@
 // notes: string
 // entryId: number
 // tags: array of strings
+// viewing: entryobject
 
 var data = {
-  view: 'entry-form',
+  // ! DEBUG
+  // view: 'entry-form',
+  view: 'detailed',
   entries: [],
   editing: null,
   nextEntryId: 1,

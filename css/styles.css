@@ -24,19 +24,6 @@ p {
   width: 100%;
 }
 
-/* .logo h1 {
-  font-size: 1.25rem;
-  font-weight: 400;
-  line-height: 2rem;
-  margin-right: 1rem;
-  position: relative;
-  top: 0.1rem;
-  padding: 0 1rem;
-  border: 1px solid white;
-  border-radius: 10px;
-  box-shadow: 0 0 2px white;
-} */
-
 .logo {
   max-height: 70%;
   margin-right: 1.5rem;
@@ -52,8 +39,13 @@ a:hover {
 }
 
 a:active {
-  color: #bb80ff;
+  color: #ac64ff;
   cursor: pointer;
+}
+
+a.arrow {
+  font-size: 3rem;
+  padding: 1rem 0;
 }
 
 h2 {
@@ -78,6 +70,43 @@ li {
 
 ul {
   padding: 0;
+}
+
+.border-bottom {
+  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+.tag-list-container h4 {
+  font-weight: 600;
+}
+
+.tag-list {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-flow: wrap row;
+}
+
+.tag-item {
+  display: inline;
+  margin-right: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.tag-item a {
+  font-size: 0.75rem;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+  padding: 0.5rem;
+}
+
+.tag-item a:hover {
+  border-color: rgba(172, 100, 255, 0.5);
+  color: rgb(131, 63, 199);
+}
+
+.tag-item a:active {
+  border-color: rgba(82, 24, 148, 0.5);
+  color: rgb(172, 100, 255);
 }
 
 label {
@@ -177,10 +206,6 @@ img.entry-img {
   margin-bottom: 1rem;
 }
 
-.remove-top-margin {
-  margin-top: 0;
-}
-
 .bottom-margin-1rem {
   margin-bottom: 1rem;
 }
@@ -197,12 +222,20 @@ form#entry-form {
   padding-top: 1rem;
 }
 
-.journal-entry {
+.journal-entry,
+.single-journal-entry {
   margin-top: 1rem;
-  margin-bottom: 4rem;
   padding-bottom: 2rem;
   padding-top: 1rem;
   border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+.journal-entry {
+  margin-bottom: 4rem;
+}
+
+.single-journal-entry {
+  margin-bottom: 1.5rem;
 }
 
 .journal-entry:last-of-type {
@@ -263,6 +296,10 @@ form#entry-form {
 
 .pop-up button.cancel:hover {
   background-color: #e2e2e2;
+}
+
+.remove-top-margin {
+  margin-top: 0;
 }
 
 @media screen and (min-width: 768px) {
