@@ -224,13 +224,13 @@ form#entry-form {
 
 .journal-entry,
 .single-journal-entry {
-  margin-top: 1rem;
   padding-bottom: 2rem;
-  padding-top: 1rem;
   border-bottom: 2px solid rgba(0, 0, 0, 0.1);
 }
 
 .journal-entry {
+  padding-top: 1rem;
+  margin-top: 1rem;
   margin-bottom: 4rem;
 }
 
