@@ -284,7 +284,7 @@ function entryDisplayLinks(event) {
     setView('detailed');
   }
   if (event.target.matches('.back')) {
-    if (data.view === 'entry-form') {
+    if (data.view === 'entry-form' && data.editFrom) {
       setView(data.editFrom);
       data.editFrom = null;
     } else {
