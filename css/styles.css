@@ -33,6 +33,13 @@ a {
   font-size: 1rem;
 }
 
+h3,
+h3 a {
+  margin-bottom: 0.25rem;
+  font-size: 1.75rem;
+  font-weight: 600;
+}
+
 a:hover,
 .journal-entry h3:hover {
   color: #833fc7;
@@ -40,25 +47,19 @@ a:hover,
 }
 
 a:active,
-.journal-entry h3:hover {
+.journal-entry h3:active {
   color: #ac64ff;
   cursor: pointer;
 }
 
-a.arrow {
-  font-size: 3rem;
+a.detailed-view-nav {
+  font-size: 2rem;
   padding: 1rem 0;
 }
 
 h2 {
   font-size: 2rem;
   margin: 1rem 0;
-}
-
-h3 {
-  margin-bottom: 0.25rem;
-  font-size: 1.75rem;
-  font-weight: 600;
 }
 
 h4 {

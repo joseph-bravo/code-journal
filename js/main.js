@@ -74,7 +74,7 @@ function submitHandler(event) {
     data.editing.lastModified = new Date();
     data.editing.tags = entryTagHandler($entryTags.value);
 
-    var $oldDiv = getEntryDivFromId(data.editing.entryId);
+    var $oldDiv = data.editing.dom;
     var $newDiv = createJournalEntryDOM(data.editing);
     $entryDisplay.replaceChild($newDiv, $oldDiv);
 
@@ -91,6 +91,18 @@ window.addEventListener('keydown', function (event) {
 });
 
 var dateFormat = new Intl.DateTimeFormat([], { dateStyle: 'medium', timeStyle: 'short' });
+
+function splitNotesIntoParagraphs(string, target) {
+  var notesSplit = string.split('\n');
+  var notesSplitFiltered = notesSplit.filter(function (element) {
+    return (element);
+  });
+  for (var noteP = 0; noteP < notesSplitFiltered.length; noteP++) {
+    var paragraph = document.createElement('p');
+    paragraph.textContent = notesSplitFiltered[noteP];
+    target.append(paragraph);
+  }
+}
 
 function createJournalEntryDOM(entry) {
 
@@ -146,15 +158,7 @@ function createJournalEntryDOM(entry) {
   $textDiv.append($headerDiv);
   // textDiv > headerDiv
 
-  var notesSplit = entry.notes.split('\n');
-  var notesSplitFiltered = notesSplit.filter(function (element) {
-    return (element);
-  });
-  for (var noteP = 0; noteP < notesSplitFiltered.length; noteP++) {
-    var paragraph = document.createElement('p');
-    paragraph.textContent = notesSplitFiltered[noteP];
-    $textDiv.append(paragraph);
-  }
+  splitNotesIntoParagraphs(entry.notes, $textDiv);
   // textDiv > headerDiv / p / p ...
 
   var $listItem = document.createElement('li');
@@ -211,21 +215,6 @@ function checkForPosts() {
   }
 }
 
-function getEntryObjectFromId(id) {
-  return data.entries.find(function (element) {
-    return element.entryId === id;
-  });
-}
-
-function getEntryDivFromId(id) {
-  var $journalEntries = document.querySelectorAll('.journal-entry');
-  for (var entryLi = 0; entryLi < $journalEntries.length; entryLi++) {
-    if (JSON.parse($journalEntries[entryLi].dataset.entryId) === id) {
-      return $journalEntries[entryLi];
-    }
-  }
-}
-
 var $entryDisplay = document.querySelector('#entry-display');
 
 function editFormFiller(obj) {
@@ -238,23 +227,57 @@ function editFormFiller(obj) {
   updatePreviewImage();
 }
 
-function entryDisplayLink(event) {
+var $detailedView = document.querySelector('[data-view="detailed"]');
+var $detailedImage = $detailedView.querySelector('.entry-img');
+var $detailedTitle = $detailedView.querySelector('.single-entry-title');
+var $detailedDate = $detailedView.querySelector('.single-date');
+var $detailedNotes = $detailedView.querySelector('.single-notes');
+var $detailedModified = $detailedView.querySelector('.single-modified');
+var $detailedTagList = $detailedView.querySelector('.tag-list');
+
+function detailedViewUpdate() {
+  $detailedImage.setAttribute('src', data.viewing.photoUrl);
+  $detailedTitle.textContent = data.viewing.title;
+  $detailedDate.textContent = dateFormat.format(data.viewing.dateCreated);
+  $detailedModified.textContent = 'last modified ' + dateFormat.format(data.viewing.lastModified);
+
+  while ($detailedNotes.children.length > 0) {
+    $detailedNotes.children[0].remove();
+  }
+  splitNotesIntoParagraphs(data.viewing.notes, $detailedNotes);
+
+  while ($detailedTagList.children.length > 0) {
+    $detailedTagList.children[0].remove();
+  }
+  for (var tagIndex = 0; tagIndex < data.viewing.tags.length; tagIndex++) {
+    var $newTag = document.createElement('li');
+    var $newTagAnchor = document.createElement('a');
+    $newTagAnchor.textContent = data.viewing.tags[tagIndex];
+    $newTag.classList.add('tag-item');
+    $newTag.append($newTagAnchor);
+    $detailedTagList.append($newTag);
+  }
+}
+
+function entryDisplayLinks(event) {
   console.log(event);
   if (event.target.classList.contains('edit-button')) {
     var $correspondingDiv = event.target.closest('[data-entry-id]');
     var correspondingEntryId = $correspondingDiv.dataset.entryId;
-    data.editing = getEntryObjectFromId(JSON.parse(correspondingEntryId));
+    data.editing = data.getEntryObject(JSON.parse(correspondingEntryId));
     editFormFiller(data.editing);
     $deleteTarget.classList.remove('hidden');
     setView('entry-form');
   }
   if (event.target.matches('.journal-entry h3')) {
-    console.log('epic');
+    var correspondingDetailedId = event.target.closest('[data-entry-id]').dataset.entryId;
+    data.viewing = data.getEntryObject(JSON.parse(correspondingDetailedId));
+    detailedViewUpdate();
     setView('detailed');
   }
 }
 
-$entryDisplay.addEventListener('click', entryDisplayLink);
+$entryDisplay.addEventListener('click', entryDisplayLinks);
 
 var $deletePopup = document.querySelector('.modal');
 function deleteButtonHandler(event) {
@@ -269,7 +292,7 @@ function popupHandler(event) {
     $deletePopup.classList.add('hidden');
   }
   if (event.target === $deleteConfirm) {
-    var $divToDelete = getEntryDivFromId(data.editing.entryId);
+    var $divToDelete = data.editing.dom;
     data.entries.splice((data.entries.indexOf(data.editing)), 1);
     $divToDelete.remove();
     $deletePopup.classList.add('hidden');
@@ -284,11 +307,14 @@ var journalEntries = data.entries;
 var $noEntryMessage = document.querySelector('.no-entry-message');
 
 function pageLoad(event) {
-  setView(data.view);
+  if (data.viewing) {
+    detailedViewUpdate();
+  }
   checkForPosts();
   for (var entryIndex = 0; entryIndex < data.entries.length; entryIndex++) {
     $entryDisplay.append(createJournalEntryDOM(journalEntries[entryIndex]));
   }
+  setView(data.view);
 }
 
 window.addEventListener('DOMContentLoaded', pageLoad);
