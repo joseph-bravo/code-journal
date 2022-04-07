@@ -163,18 +163,20 @@ button:active {
   width: 3.5rem;
 }
 
-.edit-button {
+.journal-entry .edit-button {
   margin-top: 5px;
   margin-bottom: auto;
   margin-left: auto;
   font-size: 1.5rem;
 }
 
-a.edit-button:hover {
+a.edit-button:hover,
+.detailed-view-nav:hover {
   color: #833fc7;
 }
 
-a.edit-button:active {
+a.edit-button:active,
+.detailed-view-nav:active {
   color: #4b0092;
   transform: scale(95%);
 }

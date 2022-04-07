@@ -10,12 +10,12 @@
 // viewing: entryobject
 
 var data = {
-  // ! DEBUG
   view: 'entry-form',
   entries: [],
   editing: null,
   viewing: null,
   nextEntryId: 1,
+  editFrom: null,
   getEntryObject: function (id) {
     return data.entries.find(function (element) {
       return element.entryId === id;

@@ -31,7 +31,7 @@ function entryTagHandler(string) {
   var output = [];
   var splitArray = string.split(' ');
   for (var tagIndex = 0; tagIndex < splitArray.length; tagIndex++) {
-    if (!output.includes(splitArray[tagIndex])) {
+    if (splitArray[tagIndex] && !output.includes(splitArray[tagIndex])) {
       output.push(splitArray[tagIndex]);
     }
   }
@@ -42,6 +42,7 @@ function submitHandler(event) {
   event.preventDefault();
 
   var entryObj = {};
+  var nextView = '';
 
   // entryObj ⬇️
   // title: string
@@ -67,6 +68,8 @@ function submitHandler(event) {
     var $newEntryDiv = createJournalEntryDOM(entryObj);
     $entryDisplay.prepend($newEntryDiv);
 
+    nextView = 'entries';
+
   } else {
     data.editing.title = $entryTitle.value;
     data.editing.photoUrl = $photoUrl.value;
@@ -78,10 +81,13 @@ function submitHandler(event) {
     var $newDiv = createJournalEntryDOM(data.editing);
     $entryDisplay.replaceChild($newDiv, $oldDiv);
 
+    nextView = data.editFrom;
+    data.editFrom = null;
   }
   updateStoredData();
   resetPreviewImage();
-  setView('entries');
+  detailedViewUpdate();
+  setView(nextView);
 }
 $entryForm.addEventListener('submit', submitHandler);
 window.addEventListener('keydown', function (event) {
@@ -224,6 +230,7 @@ function editFormFiller(obj) {
   $entryTitle.value = obj.title;
   $photoUrl.value = obj.photoUrl;
   $entryNotes.value = obj.notes;
+  $entryTags.value = obj.tags.join(' ');
   updatePreviewImage();
 }
 
@@ -236,6 +243,7 @@ var $detailedModified = $detailedView.querySelector('.single-modified');
 var $detailedTagList = $detailedView.querySelector('.tag-list');
 
 function detailedViewUpdate() {
+  $detailedView.setAttribute('data-entry-id', data.viewing.entryId);
   $detailedImage.setAttribute('src', data.viewing.photoUrl);
   $detailedTitle.textContent = data.viewing.title;
   $detailedDate.textContent = dateFormat.format(data.viewing.dateCreated);
@@ -260,8 +268,8 @@ function detailedViewUpdate() {
 }
 
 function entryDisplayLinks(event) {
-  console.log(event);
-  if (event.target.classList.contains('edit-button')) {
+  if (event.target.matches('.edit-button')) {
+    data.editFrom = data.view;
     var $correspondingDiv = event.target.closest('[data-entry-id]');
     var correspondingEntryId = $correspondingDiv.dataset.entryId;
     data.editing = data.getEntryObject(JSON.parse(correspondingEntryId));
@@ -275,9 +283,20 @@ function entryDisplayLinks(event) {
     detailedViewUpdate();
     setView('detailed');
   }
+  if (event.target.matches('.back')) {
+    if (data.view === 'entry-form') {
+      setView(data.editFrom);
+      data.editFrom = null;
+    } else {
+      setView('entries');
+    }
+  }
 }
 
-$entryDisplay.addEventListener('click', entryDisplayLinks);
+// $entryDisplay.addEventListener('click', entryDisplayLinks);
+// $detailedView.addEventListener('click', entryDisplayLinks);
+var $container = document.querySelector('main.container');
+$container.addEventListener('click', entryDisplayLinks);
 
 var $deletePopup = document.querySelector('.modal');
 function deleteButtonHandler(event) {
