@@ -7,12 +7,15 @@
 // notes: string
 // entryId: number
 // tags: array of strings
+// viewing: entryobject
 
 var data = {
   view: 'entry-form',
   entries: [],
   editing: null,
+  viewing: null,
   nextEntryId: 1,
+  editFrom: null,
   getEntryObject: function (id) {
     return data.entries.find(function (element) {
       return element.entryId === id;
@@ -77,6 +80,11 @@ function readStoredData() {
       data.entries[i].lastModified = new Date(data.entries[i].lastModified);
     }
   }
+  if (data.viewing) {
+    data.viewing = data.getEntryObject(data.viewing.entryId);
+  }
+  if (data.editing) {
+    data.editing = data.getEntryObject(data.editing.entryId);
+  }
 }
-
 readStoredData();
