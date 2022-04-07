@@ -202,6 +202,7 @@ for (var navIndex = 0; navIndex < $viewNav.length; navIndex++) {
 }
 function setView(viewString) {
   checkForPosts();
+  reorderList(data.sortBy.type, data.sortBy.isReverse);
   for (var viewIndex = 0; viewIndex < $views.length; viewIndex++) {
     if ($views[viewIndex].dataset.view === viewString) {
       $views[viewIndex].classList.remove('hidden');
@@ -321,6 +322,35 @@ function popupHandler(event) {
 
 $deletePopup.addEventListener('click', popupHandler);
 
+function reorderList(sortOrder, isReverse) {
+  if (!sortOrder) {
+    return;
+  }
+  var sortedArray = [];
+  switch (sortOrder) {
+    case 'dateAdded':
+      sortedArray = data.sortByDateAdded(isReverse);
+      for (var i = 0; i < sortedArray.length; i++) {
+        $entryDisplay.append(sortedArray[i].dom);
+      }
+      break;
+    case 'lastModified':
+      sortedArray = data.sortByLastModified(isReverse);
+      // eslint-disable-next-line no-redeclare
+      for (var i = 0; i < sortedArray.length; i++) {
+        $entryDisplay.append(sortedArray[i].dom);
+      }
+      break;
+    case 'alphabetical':
+      sortedArray = data.sortByAlphabet(isReverse);
+      // eslint-disable-next-line no-redeclare
+      for (var i = 0; i < sortedArray.length; i++) {
+        $entryDisplay.append(sortedArray[i].dom);
+      }
+      break;
+  }
+}
+
 //! INITIALIZE PAGE
 var journalEntries = data.entries;
 var $noEntryMessage = document.querySelector('.no-entry-message');
@@ -329,7 +359,6 @@ function pageLoad(event) {
   if (data.viewing) {
     detailedViewUpdate();
   }
-  checkForPosts();
   for (var entryIndex = 0; entryIndex < data.entries.length; entryIndex++) {
     $entryDisplay.append(createJournalEntryDOM(journalEntries[entryIndex]));
   }

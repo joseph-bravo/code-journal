@@ -16,6 +16,10 @@ var data = {
   viewing: null,
   nextEntryId: 1,
   editFrom: null,
+  sortBy: {
+    type: 'dateAdded',
+    isReverse: false
+  },
   getEntryObject: function (id) {
     return data.entries.find(function (element) {
       return element.entryId === id;
