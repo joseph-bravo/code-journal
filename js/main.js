@@ -238,7 +238,8 @@ function editFormFiller(obj) {
   updatePreviewImage();
 }
 
-function editButtonHandler(event) {
+function entryDisplayLink(event) {
+  console.log(event);
   if (event.target.classList.contains('edit-button')) {
     var $correspondingDiv = event.target.closest('[data-entry-id]');
     var correspondingEntryId = $correspondingDiv.dataset.entryId;
@@ -247,8 +248,13 @@ function editButtonHandler(event) {
     $deleteTarget.classList.remove('hidden');
     setView('entry-form');
   }
+  if (event.target.matches('.journal-entry h3')) {
+    console.log('epic');
+    setView('detailed');
+  }
 }
-$entryDisplay.addEventListener('click', editButtonHandler);
+
+$entryDisplay.addEventListener('click', entryDisplayLink);
 
 var $deletePopup = document.querySelector('.modal');
 function deleteButtonHandler(event) {

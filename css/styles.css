@@ -33,12 +33,14 @@ a {
   font-size: 1rem;
 }
 
-a:hover {
+a:hover,
+.journal-entry h3:hover {
   color: #833fc7;
   cursor: pointer;
 }
 
-a:active {
+a:active,
+.journal-entry h3:hover {
   color: #ac64ff;
   cursor: pointer;
 }
