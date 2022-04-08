@@ -244,6 +244,9 @@ var $detailedModified = $detailedView.querySelector('.single-modified');
 var $detailedTagList = $detailedView.querySelector('.tag-list');
 
 function detailedViewUpdate() {
+  if (!data.viewing) {
+    return;
+  }
   $detailedView.setAttribute('data-entry-id', data.viewing.entryId);
   $detailedImage.setAttribute('src', data.viewing.photoUrl);
   $detailedTitle.textContent = data.viewing.title;

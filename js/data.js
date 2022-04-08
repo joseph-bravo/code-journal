@@ -18,7 +18,7 @@ var data = {
   editFrom: null,
   sortBy: {
     type: 'added',
-    isReverse: false
+    isReverse: true
   },
   getEntryObject: function (id) {
     return data.entries.find(function (element) {
