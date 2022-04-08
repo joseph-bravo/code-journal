@@ -381,7 +381,7 @@ function pageLoad(event) {
   for (var entryIndex = 0; entryIndex < data.entries.length; entryIndex++) {
     $entryDisplay.append(createJournalEntryDOM(journalEntries[entryIndex]));
   }
-  initializeSortOptions();
+  // initializeSortOptions();
   setView(data.view);
 }
 

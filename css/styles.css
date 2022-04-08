@@ -309,7 +309,9 @@ form#entry-form {
 }
 
 .sort-select label {
+  font-size: 1.25rem;
   margin-bottom: 0;
+  margin-right: 0.5rem;
 }
 
 .sort-select select {
@@ -322,8 +324,13 @@ form#entry-form {
   outline: 1px solid rgba(82, 24, 148, 0.5);
 }
 
-.reverse-container {
-  margin-left: 3rem;
+button#reverse {
+  width: 2rem;
+  height: 2rem;
+}
+
+button#reverse * {
+  color: white;
 }
 
 .remove-top-margin {
