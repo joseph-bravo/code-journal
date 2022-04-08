@@ -17,7 +17,7 @@ var data = {
   nextEntryId: 1,
   editFrom: null,
   sortBy: {
-    type: 'dateAdded',
+    type: 'added',
     isReverse: false
   },
   getEntryObject: function (id) {

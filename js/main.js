@@ -328,13 +328,13 @@ function reorderList(sortOrder, isReverse) {
   }
   var sortedArray = [];
   switch (sortOrder) {
-    case 'dateAdded':
+    case 'added':
       sortedArray = data.sortByDateAdded(isReverse);
       for (var i = 0; i < sortedArray.length; i++) {
         $entryDisplay.append(sortedArray[i].dom);
       }
       break;
-    case 'lastModified':
+    case 'modified':
       sortedArray = data.sortByLastModified(isReverse);
       // eslint-disable-next-line no-redeclare
       for (var i = 0; i < sortedArray.length; i++) {
@@ -351,6 +351,22 @@ function reorderList(sortOrder, isReverse) {
   }
 }
 
+var $sortOptionsContainer = document.querySelector('.sort-select');
+var $sortOption = document.querySelector('#sort-option');
+var $reverseOption = document.querySelector('#reverse-sort');
+function sortOptionHandler(event) {
+  data.sortBy.type = $sortOption.value;
+  data.sortBy.isReverse = $reverseOption.checked;
+  reorderList(data.sortBy.type, data.sortBy.isReverse);
+  updateStoredData();
+}
+$sortOptionsContainer.addEventListener('input', sortOptionHandler);
+
+function initializeSortOptions() {
+  $sortOption.value = data.sortBy.type;
+  $reverseOption.checked = data.sortBy.isReverse;
+}
+
 //! INITIALIZE PAGE
 var journalEntries = data.entries;
 var $noEntryMessage = document.querySelector('.no-entry-message');
@@ -362,6 +378,7 @@ function pageLoad(event) {
   for (var entryIndex = 0; entryIndex < data.entries.length; entryIndex++) {
     $entryDisplay.append(createJournalEntryDOM(journalEntries[entryIndex]));
   }
+  initializeSortOptions();
   setView(data.view);
 }
 
