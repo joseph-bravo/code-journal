@@ -356,32 +356,63 @@ function reorderList(sortOrder, isReverse) {
 
 var $sortOptionsContainer = document.querySelector('.sort-select');
 var $sortOption = document.querySelector('#sort-option');
-var $reverseOption = document.querySelector('#reverse-sort');
+var $reverseToggle = document.querySelector('#reverse');
+var $reverseToggleIcon = $reverseToggle.querySelector('i');
+
+var reverseToggle = {
+  checked: true
+};
+
+function toggleHandler(event) {
+  if (reverseToggle.checked === false) {
+    reverseToggle.checked = true;
+    $reverseToggleIcon.classList.remove('fa-sort-alpha-down');
+    $reverseToggleIcon.classList.add('fa-sort-alpha-up');
+  } else {
+    reverseToggle.checked = false;
+    $reverseToggleIcon.classList.remove('fa-sort-alpha-up');
+    $reverseToggleIcon.classList.add('fa-sort-alpha-down');
+  }
+  sortOptionHandler();
+}
+
+$reverseToggle.addEventListener('click', toggleHandler);
+
 function sortOptionHandler(event) {
   data.sortBy.type = $sortOption.value;
-  data.sortBy.isReverse = $reverseOption.checked;
+  data.sortBy.isReverse = reverseToggle.checked;
   reorderList(data.sortBy.type, data.sortBy.isReverse);
   updateStoredData();
 }
-$sortOptionsContainer.addEventListener('input', sortOptionHandler);
 
 function initializeSortOptions() {
   $sortOption.value = data.sortBy.type;
-  $reverseOption.checked = data.sortBy.isReverse;
+  if (data.sortBy.isReverse) {
+    reverseToggle.checked = true;
+    $reverseToggleIcon.classList.remove('fa-sort-alpha-down');
+    $reverseToggleIcon.classList.add('fa-sort-alpha-up');
+  } else {
+    reverseToggle.checked = false;
+    $reverseToggleIcon.classList.remove('fa-sort-alpha-up');
+    $reverseToggleIcon.classList.add('fa-sort-alpha-down');
+  }
 }
+
+$sortOptionsContainer.addEventListener('input', sortOptionHandler);
 
 //! INITIALIZE PAGE
 var journalEntries = data.entries;
 var $noEntryMessage = document.querySelector('.no-entry-message');
 
 function pageLoad(event) {
+  initializeSortOptions();
   if (data.viewing) {
     detailedViewUpdate();
   }
   for (var entryIndex = 0; entryIndex < data.entries.length; entryIndex++) {
     $entryDisplay.append(createJournalEntryDOM(journalEntries[entryIndex]));
   }
-  // initializeSortOptions();
+  sortOptionHandler();
   setView(data.view);
 }
 
