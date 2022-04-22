@@ -59,7 +59,8 @@ a.detailed-view-nav {
 
 h2 {
   font-size: 2rem;
-  margin: 1rem 0;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 h4 {
@@ -181,18 +182,6 @@ a.edit-button:active,
   transform: scale(95%);
 }
 
-input,
-textarea {
-  width: 100%;
-  border: 1px solid #b6b6b6;
-  border-radius: 6px;
-  padding: 0.5rem;
-}
-
-input {
-  height: 2.5rem;
-}
-
 textarea {
   resize: none;
   height: 9rem;
@@ -201,6 +190,18 @@ textarea {
 input:focus,
 textarea:focus {
   outline: 2px solid #a1e8cc;
+}
+
+#entry-form input,
+#entry-form textarea {
+  width: 100%;
+  border: 1px solid #b6b6b6;
+  border-radius: 6px;
+  padding: 0.5rem;
+}
+
+#entry-form input {
+  height: 2.5rem;
 }
 
 img.entry-img {
@@ -235,8 +236,8 @@ form#entry-form {
 
 .journal-entry {
   padding-top: 1rem;
-  margin-top: 1rem;
-  margin-bottom: 4rem;
+  margin-top: 0;
+  margin-bottom: 3rem;
 }
 
 .single-journal-entry {
@@ -301,6 +302,35 @@ form#entry-form {
 
 .pop-up button.cancel:hover {
   background-color: #e2e2e2;
+}
+
+.sort-select {
+  padding-bottom: 1rem;
+}
+
+.sort-select label {
+  font-size: 1.25rem;
+  margin-bottom: 0;
+  margin-right: 0.5rem;
+}
+
+.sort-select select {
+  font-size: 1.25rem;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+}
+
+.sort-select select:focus-visible {
+  outline: 1px solid rgba(82, 24, 148, 0.5);
+}
+
+button#reverse {
+  width: 2rem;
+  height: 2rem;
+}
+
+button#reverse * {
+  color: white;
 }
 
 .remove-top-margin {
